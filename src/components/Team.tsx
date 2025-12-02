@@ -51,7 +51,7 @@ const Team = () => {
           badge: "from-blue-100 to-cyan-100 text-blue-800 border-blue-200",
         },
         {
-          name: "Pratekk Nareba",
+          name: "Prateek Narera",
           role: "CO-Head",
           email: "u23e0048@ced.svnit.ac.in",
           icon: Users,
@@ -376,7 +376,7 @@ const Team = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%,
           100% {
