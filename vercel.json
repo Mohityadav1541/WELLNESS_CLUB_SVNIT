@@ -10,7 +10,4 @@
       "destination": "/index.html"
     }
   ],
-  "env": {
-    "VITE_CLERK_PUBLISHABLE_KEY": "@vite_clerk_publishable_key"
-  }
 }
