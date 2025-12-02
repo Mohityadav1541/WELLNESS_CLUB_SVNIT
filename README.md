@@ -62,7 +62,36 @@ This project is built with:
 
 ## How can I deploy this project?
 
+### Option 1: Deploy with Lovable
 Simply open [Lovable](https://lovable.dev/projects/0ec88094-775e-4f05-b2ce-461a5a0de510) and click on Share -> Publish.
+
+### Option 2: Deploy to Vercel
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Set up environment variables in Vercel dashboard:
+   - `VITE_CLERK_PUBLISHABLE_KEY`
+3. Deploy: `vercel --prod`
+
+Alternatively, connect your GitHub repository to Vercel for automatic deployments.
+
+### Option 3: Deploy to Netlify
+
+1. Install Netlify CLI: `npm i -g netlify-cli`
+2. Build the project: `npm run build`
+3. Deploy: `netlify deploy --prod --dir=dist`
+4. Set environment variables in Netlify dashboard:
+   - `VITE_CLERK_PUBLISHABLE_KEY`
+
+Alternatively, connect your GitHub repository to Netlify for automatic deployments.
+
+### Environment Variables Setup
+
+Before deploying, ensure you have:
+1. Copied `.env.example` to `.env`
+2. Added your Clerk API keys from [Clerk Dashboard](https://dashboard.clerk.com)
+3. Configured the same environment variables in your deployment platform
+
+**Important:** Never commit `.env` files to version control. The `.env` file is already in `.gitignore`.
 
 ## Can I connect a custom domain to my Lovable project?
 
@@ -71,3 +100,13 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Production Checklist
+
+Before deploying to production:
+- [ ] Environment variables are configured in your deployment platform
+- [ ] `.env` is in `.gitignore` (already configured)
+- [ ] Build succeeds locally: `npm run build`
+- [ ] No linting errors: `npm run lint`
+- [ ] Clerk authentication is properly configured
+- [ ] All routes are tested and working
