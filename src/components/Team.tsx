@@ -53,7 +53,7 @@ const Team = () => {
         {
           name: "Prateek Narera",
           role: "CO-Head",
-          email: "u23e0048@ced.svnit.ac.in",
+          email: "u23e0084@ced.svnit.ac.in",
           icon: Users,
           bio: "Supporting head in club management and ensuring smooth execution of all activities",
           image: "/prateek_narera.jpg",
