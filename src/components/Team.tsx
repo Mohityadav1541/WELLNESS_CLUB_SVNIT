@@ -1,0 +1,397 @@
+import {
+  Mail,
+  Crown,
+  Users,
+  Shield,
+  CreditCard,
+  Star,
+  Heart,
+  Sparkles,
+} from "lucide-react";
+
+const Team = () => {
+  const teamStructure = [
+    {
+      level: "Leadership",
+      members: [
+        {
+          name: "Dr. YD Patil",
+          role: "Chairman, Wellness Club",
+          email: "YD.Patil@svnit.ac.in",
+          icon: Crown,
+          bio: "Leading the Wellness Club initiatives at SVNIT with visionary guidance and strategic direction",
+          image: "/yd_patil.jpg",
+          accent: "from-amber-500 to-yellow-500",
+          badge: "from-yellow-100 to-amber-100 text-amber-800 border-amber-200",
+        },
+        {
+          name: "Khyati Mistry",
+          role: "Co-Chairman, Wellness Club",
+          email: "khyati.mistry@svnit.ac.in",
+          icon: Crown,
+          bio: "Co-leading the Wellness Club initiatives and driving strategic planning for holistic wellness programs",
+          image: "/khyati_mistry.png",
+          accent: "from-purple-500 to-pink-500",
+          badge:
+            "from-purple-100 to-pink-100 text-purple-800 border-purple-200",
+        },
+      ],
+    },
+    {
+      level: "Heads",
+      members: [
+        {
+          name: "Karan Singh",
+          role: "HEAD",
+          email: "u23se125@ced.svnit.ac.in",
+          icon: Users,
+          bio: "Leading club operations and coordinating wellness activities with passion and dedication",
+          image: "/karan_singh.jpg",
+          accent: "from-blue-500 to-cyan-500",
+          badge: "from-blue-100 to-cyan-100 text-blue-800 border-blue-200",
+        },
+        {
+          name: "Pratekk Nareba",
+          role: "CO-Head",
+          email: "u23e0048@ced.svnit.ac.in",
+          icon: Users,
+          bio: "Supporting head in club management and ensuring smooth execution of all activities",
+          image: "/prateek_narera.jpg",
+          accent: "from-indigo-500 to-blue-500",
+          badge:
+            "from-indigo-100 to-blue-100 text-indigo-800 border-indigo-200",
+        },
+        {
+          name: "Prakhar Singh",
+          role: "CO-HEAD",
+          email: "u23med24@ced.svnit.ac.in",
+          icon: Users,
+          bio: "Co-leading wellness programs and events with innovative approaches and team coordination",
+          image: "/prakhar_singh.jpg",
+          accent: "from-cyan-500 to-teal-500",
+          badge: "from-cyan-100 to-teal-100 text-cyan-800 border-cyan-200",
+        },
+      ],
+    },
+    {
+      level: "Executive",
+      members: [
+        {
+          name: "Nakul Singh",
+          role: "SECRETARY",
+          email: "u23se118@ced.svnit.ac.in",
+          icon: Shield,
+          bio: "Managing administrative tasks, communications, and ensuring efficient club operations",
+          image: "/nakul_singh.jpg",
+          accent: "from-green-500 to-emerald-500",
+          badge:
+            "from-green-100 to-emerald-100 text-green-800 border-green-200",
+        },
+        {
+          name: "Tanish Kasera",
+          role: "TREASURER",
+          email: "u23med24@ced.svnit.ac.in",
+          icon: CreditCard,
+          bio: "Handling financial matters, budget planning, and resource allocation for club activities",
+          image: "/tanishk_kasera.jpg",
+          accent: "from-emerald-500 to-green-500",
+          badge:
+            "from-emerald-100 to-green-100 text-emerald-800 border-emerald-200",
+        },
+      ],
+    },
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute top-10 left-10 opacity-20 animate-float">
+        <Sparkles className="w-8 h-8 text-purple-400" />
+      </div>
+      <div
+        className="absolute top-20 right-16 opacity-30 animate-float"
+        style={{ animationDelay: "2s" }}
+      >
+        <Heart className="w-6 h-6 text-pink-400" />
+      </div>
+      <div
+        className="absolute bottom-20 left-20 opacity-20 animate-float"
+        style={{ animationDelay: "1s" }}
+      >
+        <Star className="w-7 h-7 text-amber-400" />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Enhanced Header Section */}
+        <div className="text-center mb-20 animate-fade-up">
+          <div className="inline-flex items-center gap-2 mb-4 px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200/50 shadow-sm">
+            <Sparkles className="w-4 h-4 text-purple-500" />
+            <span className="text-sm font-semibold text-purple-700">
+              Meet Our Team
+            </span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-6 tracking-tight">
+            Our Team
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+            Meet the passionate leaders and dedicated committee members behind
+            the
+            <span className="font-semibold text-blue-600">
+              {" "}
+              Wellness Club, SVNIT
+            </span>
+          </p>
+        </div>
+
+        {/* Team Structure */}
+        <div className="space-y-16 max-w-7xl mx-auto">
+          {teamStructure.map((level, levelIndex) => (
+            <div key={levelIndex} className="relative">
+              {/* Level Header */}
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/60 shadow-lg">
+                  <div
+                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${
+                      level.level === "Leadership"
+                        ? "from-amber-400 to-yellow-400"
+                        : level.level === "Heads"
+                        ? "from-blue-400 to-cyan-400"
+                        : "from-green-400 to-emerald-400"
+                    }`}
+                  ></div>
+                  <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                    {level.level}
+                  </h3>
+                  <div
+                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${
+                      level.level === "Leadership"
+                        ? "from-amber-400 to-yellow-400"
+                        : level.level === "Heads"
+                        ? "from-blue-400 to-cyan-400"
+                        : "from-green-400 to-emerald-400"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Members Grid */}
+              <div
+                className={`grid grid-cols-1 ${
+                  level.level === "Leadership"
+                    ? "md:grid-cols-2 max-w-4xl mx-auto gap-8"
+                    : level.level === "Heads"
+                    ? "md:grid-cols-3 gap-6"
+                    : "md:grid-cols-2 max-w-3xl mx-auto gap-8"
+                }`}
+              >
+                {level.members.map((member, memberIndex) => {
+                  const Icon = member.icon;
+                  return (
+                    <div
+                      key={memberIndex}
+                      className="group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100"
+                    >
+                      {/* Background Gradient */}
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-br ${member.accent} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}
+                      ></div>
+
+                      {/* Profile Header */}
+                      <div className="relative pt-8 px-6">
+                        {/* Profile Image */}
+                        <div className="relative z-10 mx-auto w-28 h-28">
+                          <div className="relative w-full h-full">
+                            <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 rounded-full shadow-lg transform group-hover:scale-105 transition-transform duration-500 p-1">
+                              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white shadow-inner">
+                                <img
+                                  src={member.image}
+                                  alt={member.name}
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                />
+                              </div>
+                            </div>
+                            {/* Icon Badge */}
+                            <div
+                              className={`absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center border-3 border-white shadow-lg bg-gradient-to-r ${member.accent}`}
+                            >
+                              <Icon className="w-4 h-4 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="pt-16 pb-8 px-6 text-center relative z-10">
+                        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors">
+                          {member.name}
+                        </h3>
+
+                        {/* Role Badge */}
+                        <div className="mb-4">
+                          <span
+                            className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold border bg-gradient-to-r ${member.badge} shadow-sm`}
+                          >
+                            {member.role}
+                          </span>
+                        </div>
+
+                        {/* Bio */}
+                        <p className="text-gray-600 text-sm mb-6 leading-relaxed font-light min-h-[60px]">
+                          {member.bio}
+                        </p>
+
+                        {/* Email */}
+                        <div className="flex items-center justify-center gap-3 p-3 bg-gray-50/80 rounded-xl border border-gray-200/60 group-hover:bg-white transition-colors duration-300">
+                          <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="text-sm text-gray-700 hover:text-blue-600 transition-colors break-all font-medium truncate"
+                            title={member.email}
+                          >
+                            {member.email}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Enhanced Organizational Chart */}
+        <div className="mt-24 max-w-5xl mx-auto">
+          <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-3xl p-8 md:p-12 border border-gray-200/60 shadow-xl backdrop-blur-sm">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
+                Organizational Structure
+              </h3>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Clear hierarchy and defined roles for efficient club management
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center space-y-8">
+              {/* Leadership Level */}
+              <div className="flex justify-center gap-12">
+                {teamStructure[0].members.map((member, index) => (
+                  <div key={index} className="text-center group">
+                    <div
+                      className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg bg-gradient-to-r ${member.accent} group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      <Crown className="w-8 h-8 text-white" />
+                    </div>
+                    <p className="text-sm font-semibold text-gray-700">
+                      {member.role.split(",")[0]}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Connecting Line */}
+              <div className="w-1 h-12 bg-gradient-to-b from-blue-200 to-purple-200 rounded-full"></div>
+
+              {/* Heads Level */}
+              <div className="flex justify-center gap-8">
+                {teamStructure[1].members.map((member, index) => (
+                  <div key={index} className="text-center group">
+                    <div
+                      className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg bg-gradient-to-r ${member.accent} group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      <Users className="w-6 h-6 text-white" />
+                    </div>
+                    <p className="text-xs font-semibold text-gray-700">
+                      {member.role}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Connecting Line */}
+              <div className="w-1 h-12 bg-gradient-to-b from-blue-200 to-purple-200 rounded-full"></div>
+
+              {/* Executive Level */}
+              <div className="flex justify-center gap-12">
+                {teamStructure[2].members.map((member, index) => (
+                  <div key={index} className="text-center group">
+                    <div
+                      className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg bg-gradient-to-r ${member.accent} group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      {member.role === "SECRETARY" ? (
+                        <Shield className="w-6 h-6 text-white" />
+                      ) : (
+                        <CreditCard className="w-6 h-6 text-white" />
+                      )}
+                    </div>
+                    <p className="text-xs font-semibold text-gray-700">
+                      {member.role}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced CTA Section */}
+        <div className="mt-24 max-w-5xl mx-auto">
+          <div className="bg-gradient-to-br from-blue-50/80 to-purple-50/80 rounded-3xl p-12 md:p-16 border border-blue-200/50 shadow-2xl backdrop-blur-sm relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.03]">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500 rounded-full translate-x-1/2 translate-y-1/2"></div>
+            </div>
+
+            <div className="text-center relative z-10">
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Join Our Wellness Journey
+              </h3>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                The Wellness Club at SVNIT is dedicated to promoting holistic
+                health and well-being through innovative programs, workshops,
+                and community initiatives.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "Health Workshops",
+                  "Fitness Sessions",
+                  "Mental Wellness",
+                  "Community Building",
+                  "Sports Activities",
+                  "Yoga & Meditation",
+                  "Nutrition Guidance",
+                  "Stress Management",
+                ].map((activity, index) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 shadow-sm border border-gray-200/60 hover:shadow-md hover:scale-105 transition-all duration-300"
+                  >
+                    {activity}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-10px) rotate(5deg);
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Team;
