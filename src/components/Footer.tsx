@@ -224,9 +224,16 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-center pt-8 border-t border-white/10">
+            <img
+              src={"svnit-logo.png"}
+              alt="SVNIT Logo"
+              className="h-24 w-24 md:h-32 md:w-32 mx-auto mb-4 object-contain animate-fade-in"
+            />
+
             <p className="text-white/70">
               © {currentYear} Wellness Club SVNIT. All rights reserved.
             </p>
+
             <p className="text-white/50 text-sm mt-2">
               Made with ❤️ by Neel Mhaske & Mohit Yadav
             </p>

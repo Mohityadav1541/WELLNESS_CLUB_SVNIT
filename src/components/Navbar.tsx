@@ -133,13 +133,19 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-4">
+              <img
+                src={"svnit-logo.png"}
+                alt="SVNIT Logo"
+                className="h-10 w-10 md:h-12 md:w-12 object-contain"
+              />
+
               <img
                 src={wellnessLogo}
                 alt="Wellness Club Logo"
-                className="h-10 w-10 md:h-12 md:w-12"
+                className="h-10 w-10 md:h-12 md:w-12 object-contain"
               />
+
               <span className="text-xl md:text-2xl font-bold text-primary">
                 Wellness Club
               </span>

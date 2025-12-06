@@ -347,7 +347,7 @@ const Feedback = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0%,
           100% {
@@ -360,7 +360,7 @@ const Feedback = () => {
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
-      `}</style>
+      `}</style> */}
     </section>
   );
 };
