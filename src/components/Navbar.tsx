@@ -147,7 +147,7 @@ const Navbar = () => {
               />
 
               <span className="text-xl md:text-2xl font-bold text-primary">
-                Wellness Club
+                WELLNESS CLUB
               </span>
             </Link>
 
