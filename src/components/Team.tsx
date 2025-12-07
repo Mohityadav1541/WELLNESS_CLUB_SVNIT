@@ -43,7 +43,7 @@ const Team = () => {
         {
           name: "Karan Singh",
           role: "HEAD",
-          email: "u23se125@ced.svnit.ac.in",
+          email: "U23CE125@ced.svnit.ac.in",
           icon: Users,
           bio: "Leading club operations and coordinating wellness activities with passion and dedication",
           image: "/karan_singh.jpg",
@@ -53,7 +53,7 @@ const Team = () => {
         {
           name: "Prateek Narera",
           role: "CO-Head",
-          email: "u23ce0084@ced.svnit.ac.in",
+          email: "U23CE084@ced.svnit.ac.in",
           icon: Users,
           bio: "Supporting head in club management and ensuring smooth execution of all activities",
           image: "/prateek_narera.jpg",
@@ -79,7 +79,7 @@ const Team = () => {
         {
           name: "Nakul Singh",
           role: "SECRETARY",
-          email: "u23se118@ced.svnit.ac.in",
+          email: "u23ce118@ced.svnit.ac.in",
           icon: Shield,
           bio: "Managing administrative tasks, communications, and ensuring efficient club operations",
           image: "/nakul_singh.jpg",
