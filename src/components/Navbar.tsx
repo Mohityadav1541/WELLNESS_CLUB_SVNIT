@@ -1,15 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, Home, Info, Calendar, MessageSquare } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  useClerk,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
-import wellnessLogo from "@/assets/wellness-logo.png";
+import wellnessLogo from "@/assets/wellness-logo-clean.png";
 import {
   Dialog,
   DialogContent,
@@ -19,31 +12,53 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 
-const Navbar = () => {
+const Navbar = ({ transparent = false }: { transparent?: boolean }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [protectedPage, setProtectedPage] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
-  const { openSignIn } = useClerk();
-  const { isSignedIn } = useUser();
+
+  // MOCK AUTH STATE for local server debugging
+  const isSignedIn = false;
+  const openSignIn = (options?: any) => {
+    console.log("Open Sign In clicked (Mock)", options);
+    // alert("Sign In disabled in local debug mode");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      // Update background style
+      setIsScrolled(currentScrollY > 50);
+
+      // Handle show/hide on scroll
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down & past threshold -> Hide
+        setIsVisible(false);
+      } else {
+        // Scrolling up -> Show
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Define all navbar links
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Events", path: "/programs" },
-    { name: "Feedback", path: "/feedback", protected: true },
-    { name: "Team", path: "/team" },
+    { name: "Home", path: "/", icon: Home },
+    { name: "About", path: "/about", icon: Info },
+    { name: "Events", path: "/programs", icon: Calendar },
+    { name: "Feedback", path: "/feedback", protected: true, icon: MessageSquare },
+    { name: "Team", path: "/team", icon: User },
   ];
 
   const handleProtectedNavigation = (item: {
@@ -79,21 +94,37 @@ const Navbar = () => {
   const NavLink = ({
     item,
   }: {
-    item: { name: string; path: string; protected?: boolean };
+    item: { name: string; path: string; protected?: boolean; icon: any };
   }) => {
     const handleClick = (e: React.MouseEvent) => {
       if (!handleProtectedNavigation(item)) e.preventDefault();
     };
 
+    const Icon = item.icon;
+
     return (
       <Link
         to={item.path}
         onClick={handleClick}
-        className={`text-white font-medium hover:text-primary transition-colors relative group ${
-          location.pathname === item.path ? "text-primary" : ""
-        }`}
+        className={`relative font-medium transition-all group px-3 py-2 flex items-center justify-center`}
       >
-        {item.name}
+        {/* Text - visible by default, hidden on hover */}
+        <span
+          className={`transition-all duration-300 transform group-hover:scale-0 group-hover:opacity-0 ${location.pathname === item.path ? "text-primary" : "text-white"
+            }`}
+        >
+          {item.name}
+        </span>
+
+        {/* Icon - hidden by default, visible on hover */}
+        <span
+          className={`absolute transition-all duration-300 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 ${location.pathname === item.path ? "text-primary" : "text-white"
+            }`}
+        >
+          <Icon size={20} />
+        </span>
+
+        {/* Underline effect */}
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
       </Link>
     );
@@ -103,7 +134,7 @@ const Navbar = () => {
   const MobileNavLink = ({
     item,
   }: {
-    item: { name: string; path: string; protected?: boolean };
+    item: { name: string; path: string; protected?: boolean; icon: any };
   }) => {
     const handleClick = (e: React.MouseEvent) => {
       if (!handleProtectedNavigation(item)) e.preventDefault();
@@ -113,9 +144,8 @@ const Navbar = () => {
       <Link
         to={item.path}
         onClick={handleClick}
-        className={`text-white font-medium hover:text-primary transition-colors text-left py-2 ${
-          location.pathname === item.path ? "text-primary" : ""
-        }`}
+        className={`text-white font-medium hover:text-primary transition-colors text-left py-2 ${location.pathname === item.path ? "text-primary" : ""
+          }`}
       >
         {item.name}
       </Link>
@@ -125,11 +155,13 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 transform ${isVisible ? "translate-y-0" : "-translate-y-full"
+          } ${isScrolled
             ? "bg-secondary backdrop-blur-md shadow-lg py-4"
-            : "bg-secondary backdrop-blur-sm py-5"
-        }`}
+            : transparent
+              ? "bg-transparent py-5"
+              : "bg-secondary backdrop-blur-sm py-5"
+          }`}
       >
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between">
@@ -143,7 +175,7 @@ const Navbar = () => {
               <img
                 src={wellnessLogo}
                 alt="Wellness Club Logo"
-                className="h-10 w-10 md:h-12 md:w-12 object-contain"
+                className="h-10 w-10 md:h-12 md:w-12 object-cover rounded-full"
               />
 
               <span className="text-xl md:text-2xl font-bold text-primary">
@@ -160,7 +192,7 @@ const Navbar = () => {
 
             {/* Right Side — Join Now OR User Button */}
             <div className="hidden md:block">
-              <SignedOut>
+              {!isSignedIn ? (
                 <Button
                   variant="hero"
                   size="default"
@@ -168,18 +200,11 @@ const Navbar = () => {
                 >
                   Join Now
                 </Button>
-              </SignedOut>
-
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox:
-                        "h-10 w-10 border-2 border-primary rounded-full",
-                    },
-                  }}
-                />
-              </SignedIn>
+              ) : (
+                <div className="h-10 w-10 border-2 border-primary rounded-full flex items-center justify-center bg-secondary">
+                  <User className="text-white" />
+                </div>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -199,7 +224,7 @@ const Navbar = () => {
                   <MobileNavLink key={item.name} item={item} />
                 ))}
 
-                <SignedOut>
+                {!isSignedIn ? (
                   <Button
                     variant="hero"
                     className="w-full mt-2"
@@ -210,20 +235,13 @@ const Navbar = () => {
                   >
                     Join Now
                   </Button>
-                </SignedOut>
-
-                <SignedIn>
+                ) : (
                   <div className="flex justify-center mt-4">
-                    <UserButton
-                      appearance={{
-                        elements: {
-                          userButtonAvatarBox:
-                            "h-12 w-12 border-2 border-primary rounded-full",
-                        },
-                      }}
-                    />
+                    <div className="h-12 w-12 border-2 border-primary rounded-full flex items-center justify-center bg-secondary">
+                      <User className="text-white" />
+                    </div>
                   </div>
-                </SignedIn>
+                )}
               </div>
             </div>
           )}

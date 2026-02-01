@@ -7,11 +7,81 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
-import { useClerk, useUser } from "@clerk/clerk-react";
+import { useEffect, useState, useRef } from "react";
+import meditationBg from "@/assets/meditation-bg.jpg";
+
+const CountUp = ({ end, duration = 2000 }: { end: string; duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Extract number and suffix
+  const numberMatch = end.match(/\d+/);
+  const number = numberMatch ? parseInt(numberMatch[0]) : 0;
+  const suffix = end.replace(/\d+/, "");
+  // Handle special case like 24/7 or text only
+  const isComplex = end.includes("/");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || isComplex) return;
+
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+
+      // Easing function (easeOutExpo)
+      const ease = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
+
+      setCount(Math.floor(ease * number));
+
+      if (progress < duration) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isVisible, number, duration, isComplex]);
+
+  if (isComplex) return <span ref={countRef}>{end}</span>;
+
+  return (
+    <span ref={countRef}>
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 const About = () => {
-  const { openSignIn } = useClerk();
-  const { isSignedIn, user } = useUser(); // Get user authentication status
+
+  // MOCK AUTH
+  const isSignedIn = false;
+  const user = { firstName: "Guest" };
+  const openSignIn = (options?: any) => { console.log(options) };
 
   const handleJoinCommunity = () => {
     openSignIn({ redirectUrl: "/" });
@@ -23,8 +93,8 @@ const About = () => {
       title: "Holistic Approach",
       description:
         "We believe in nurturing every aspect of your being - mind, body, and soul - for complete wellness.",
-      gradient: "from-pink-500 to-rose-500",
-      bgGradient: "from-pink-50 to-rose-50",
+      // Soft amber/gold gradients
+      gradient: "from-amber-400 to-yellow-500",
       delay: "0s",
     },
     {
@@ -32,8 +102,7 @@ const About = () => {
       title: "Personalized Care",
       description:
         "Every journey is unique. We create customized wellness plans tailored to your specific needs and goals.",
-      gradient: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-50 to-cyan-50",
+      gradient: "from-amber-400 to-yellow-500",
       delay: "0.1s",
     },
     {
@@ -41,8 +110,7 @@ const About = () => {
       title: "Community Support",
       description:
         "Join a vibrant community of like-minded individuals on their wellness journey, supporting each other every step.",
-      gradient: "from-green-500 to-emerald-500",
-      bgGradient: "from-green-50 to-emerald-50",
+      gradient: "from-amber-400 to-yellow-500",
       delay: "0.2s",
     },
     {
@@ -50,8 +118,7 @@ const About = () => {
       title: "Expert Guidance",
       description:
         "Learn from certified professionals with years of experience in wellness, fitness, and holistic health.",
-      gradient: "from-purple-500 to-indigo-500",
-      bgGradient: "from-purple-50 to-indigo-50",
+      gradient: "from-amber-400 to-yellow-500",
       delay: "0.3s",
     },
   ];
@@ -66,236 +133,181 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 md:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden"
+      className="py-20 md:py-32 relative overflow-hidden text-slate-100"
     >
-      {/* Background Decorations */}
-      <div className="absolute top-20 left-10 opacity-20 animate-float">
-        <Sparkles className="w-8 h-8 text-purple-400" />
-      </div>
+      {/* Background Image with Fixed Attachment for Parallax Effect */}
       <div
-        className="absolute top-40 right-20 opacity-30 animate-float"
-        style={{ animationDelay: "2s" }}
-      >
-        <Star className="w-6 h-6 text-amber-400" />
-      </div>
-      <div
-        className="absolute bottom-40 left-20 opacity-20 animate-float"
-        style={{ animationDelay: "1s" }}
-      >
-        <Heart className="w-7 h-7 text-pink-400" />
-      </div>
+        className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
+        style={{ backgroundImage: `url(${meditationBg})` }}
+      />
+
+      {/* Dark Overlay for Readability */}
+      <div className="absolute inset-0 z-0 bg-[#0a0a1a]/80 backdrop-blur-[1px]" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        {/* Enhanced Header */}
+        {/* Header */}
         <div className="text-center mb-20 animate-fade-up">
-          <div className="inline-flex items-center gap-2 mb-6 px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200/50 shadow-sm">
-            <Sparkles className="w-4 h-4 text-purple-500" />
-            <span className="text-sm font-semibold text-purple-700">
-              About Our Mission
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/5 border border-amber-500/30 backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span className="text-sm font-medium text-amber-100 tracking-wide uppercase">
+              Our Essence
             </span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-6 tracking-tight">
+          <h2 className="text-5xl md:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-white to-amber-100 mb-6 tracking-tight drop-shadow-sm">
             About Wellness Club
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-            We're more than just a wellness center - we're a community dedicated
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+            We're more than just a wellness center - we're a sanctuary dedicated
             to transforming lives through{" "}
-            <span className="font-semibold text-blue-600">holistic health</span>{" "}
+            <span className="font-medium text-amber-400">holistic health</span>{" "}
             and{" "}
-            <span className="font-semibold text-purple-600">
+            <span className="font-medium text-amber-400">
               mindful living
             </span>
             .
           </p>
         </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20 max-w-4xl mx-auto">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="text-center group animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/60 hover:shadow-xl hover:scale-105 transition-all duration-500">
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-sm font-medium text-gray-600">
-                  {stat.label}
+        {/* Stats Section with New Theme */}
+        <div className="mb-24">
+          <div className="text-center mb-12">
+            <span className="text-amber-400/80 font-medium tracking-[0.2em] uppercase text-xs">
+              Milestones
+            </span>
+            <h2 className="text-3xl md:text-4xl font-serif text-white mt-3 mb-6">
+              Numbers That Tell <span className="italic text-amber-400">Our Story</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className="text-center group p-6 relative"
+              >
+                <div className="absolute inset-0 bg-white/5 rounded-2xl border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+
+                <div className="relative">
+                  <div className="text-5xl md:text-6xl font-serif text-amber-400 mb-4 transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+                    <CountUp end={stat.number} />
+                  </div>
+                  <div className="text-slate-400 font-medium tracking-wide uppercase text-xs border-t border-white/10 pt-4 mx-auto w-12 group-hover:w-24 group-hover:border-amber-400/50 transition-all duration-500">
+                    {stat.label}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Values Grid - Removed Right Arrow */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        {/* Values Grid - Glassmorphism */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {values.map((value, index) => {
             const Icon = value.icon;
             return (
               <div
                 key={index}
-                className="group relative animate-fade-up"
+                className="group relative animate-fade-up h-full"
                 style={{ animationDelay: value.delay }}
               >
-                {/* Background Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 border border-gray-200/60" />
+                {/* Glass Card */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/5 transition-all duration-500 group-hover:bg-white/10 group-hover:border-amber-500/20 group-hover:-translate-y-2" />
 
                 {/* Content */}
-                <div className="relative p-8 h-full">
-                  {/* Icon Container */}
+                <div className="relative p-8 h-full flex flex-col items-center text-center">
                   <div
-                    className={`relative mb-6 w-16 h-16 bg-gradient-to-r ${value.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg`}
+                    className={`mb-6 w-14 h-14 bg-gradient-to-br ${value.gradient} rounded-full flex items-center justify-center shadow-lg shadow-amber-900/20 group-hover:scale-110 transition-transform duration-500`}
                   >
-                    <Icon className="w-8 h-8 text-white" />
-                    {/* Hover Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <Icon className="w-7 h-7 text-black/80" />
                   </div>
 
-                  {/* Text Content */}
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-gray-800 transition-colors">
-                      {value.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed font-light">
-                      {value.description}
-                    </p>
-                  </div>
+                  <h3 className="text-xl font-serif font-bold text-white mb-4 group-hover:text-amber-200 transition-colors">
+                    {value.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed text-sm font-light">
+                    {value.description}
+                  </p>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Enhanced Mission Statement */}
-        <div className="relative">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl" />
+        {/* Mission Statement */}
+        <div className="relative max-w-5xl mx-auto">
+          <div className="relative bg-gradient-to-b from-white/10 to-transparent rounded-[3rem] p-10 md:p-20 text-center border border-white/10 backdrop-blur-md animate-fade-up">
 
-          <div className="relative bg-gradient-to-br from-white to-gray-50/80 rounded-3xl p-10 md:p-16 text-center border border-gray-200/60 shadow-xl backdrop-blur-sm animate-fade-up">
-            {/* Decorative Elements */}
-            <div className="absolute top-6 left-6 w-4 h-4 bg-blue-400/20 rounded-full" />
-            <div className="absolute bottom-6 right-6 w-6 h-6 bg-purple-400/20 rounded-full" />
-            <div className="absolute top-6 right-10 w-3 h-3 bg-pink-400/20 rounded-full" />
-            <div className="absolute bottom-10 left-10 w-5 h-5 bg-cyan-400/20 rounded-full" />
+            <div className="inline-flex items-center gap-2 mb-8 opacity-70">
+              <span className="h-px w-12 bg-amber-400"></span>
+              <Target className="w-5 h-5 text-amber-400" />
+              <span className="h-px w-12 bg-amber-400"></span>
+            </div>
 
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-blue-50 border border-blue-200">
-                <Target className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-700">
-                  Our Mission
-                </span>
-              </div>
+            <h3 className="text-3xl md:text-5xl font-serif font-medium text-white mb-10 leading-tight">
+              Transforming Lives Through <br />
+              <span className="italic text-amber-400">Mindful Wellness</span>
+            </h3>
 
-              <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-8">
-                Transforming Lives Through Wellness
-              </h3>
+            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light mb-12">
+              To empower individuals to achieve{" "}
+              <span className="text-white font-medium">
+                optimal health
+              </span>{" "}
+              through comprehensive programs, expert guidance, and a
+              supportive community. We strive to make wellness{" "}
+              <span className="text-white font-medium">
+                accessible, sustainable, and transformative
+              </span>{" "}
+              for everyone.
+            </p>
 
-              <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-8">
-                To empower individuals to achieve{" "}
-                <span className="font-semibold text-blue-600">
-                  optimal health and wellness
-                </span>{" "}
-                through comprehensive programs, expert guidance, and a
-                supportive community. We strive to make wellness{" "}
-                <span className="font-semibold text-purple-600">
-                  accessible, sustainable, and transformative
-                </span>{" "}
-                for everyone.
-              </p>
-
-              {/* Additional Mission Points */}
-              <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mt-12">
-                {[
-                  {
-                    text: "Promote mental & physical well-being",
-                    color: "from-blue-500 to-cyan-500",
-                  },
-                  {
-                    text: "Foster inclusive community growth",
-                    color: "from-purple-500 to-pink-500",
-                  },
-                  {
-                    text: "Innovate wellness education",
-                    color: "from-green-500 to-emerald-500",
-                  },
-                ].map((point, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 p-4 bg-white/50 rounded-xl border border-gray-200/60"
-                  >
-                    <div
-                      className={`w-3 h-3 rounded-full bg-gradient-to-r ${point.color} flex-shrink-0`}
-                    />
-                    <span className="text-sm text-gray-700 font-medium">
-                      {point.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            {/* Additional Mission Points */}
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                "Mental & Physical Harmony",
+                "Inclusive Growth",
+                "Holistic Education"
+              ].map((text, index) => (
+                <div
+                  key={index}
+                  className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-slate-300 font-medium hover:bg-white/10 transition-colors"
+                >
+                  {text}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Conditional CTA Section */}
-        <div className="text-center mt-16 animate-fade-up">
+        {/* CTA Section */}
+        <div className="text-center mt-20 animate-fade-up">
           {isSignedIn ? (
-            // Welcome Message for Logged-in Users
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-8 md:p-12 border border-emerald-200/60 shadow-lg max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 rounded-full bg-emerald-100 border border-emerald-200">
-                <Star className="w-4 h-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-700">
-                  Welcome to the Community!
-                </span>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                Welcome back, {user?.firstName || "Valued Member"}! 👋
+            <div className="bg-white/5 inline-block rounded-3xl p-8 border border-white/10 backdrop-blur-md">
+              <h3 className="text-2xl font-serif text-white mb-4">
+                Welcome back, {user?.firstName || "Friend"}
               </h3>
-              <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                We're glad to have you as part of our wellness community.
-                Explore our programs, join upcoming events, and continue your
-                wellness journey with us.
+              <p className="text-slate-400 mb-6">
+                Continue your journey with us.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a
-                  href="/programs"
-                  className="group bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-semibold px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 flex items-center gap-2"
-                >
-                  Explore Programs
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </a>
-              </div>
+              <a
+                href="/programs"
+                className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-medium px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
+              >
+                Explore Programs
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
           ) : (
-            // Join Community Button for Non-Logged-in Users
-            <div className="inline-flex flex-col sm:flex-row gap-4 items-center justify-center">
-              <button
-                onClick={handleJoinCommunity}
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 flex items-center gap-2"
-              >
-                Join Our Community
-                <Users className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              </button>
-            </div>
+            <button
+              onClick={handleJoinCommunity}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-amber-400/50 text-amber-100 rounded-full hover:bg-amber-500/10 transition-all duration-300 hover:border-amber-400"
+            >
+              <span className="font-medium tracking-wide">Join Our Community</span>
+              <Users className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
           )}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(5deg);
-          }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 };

@@ -8,9 +8,10 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Wellness Color Palette */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 13%;
+    /* Wellness Color Palette - Defaulting to Dark/Cosmic Theme */
+    --background: 222 47% 11%;
+    /* #0f172a */
+    --foreground: 210 40% 98%;
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 13%;
@@ -51,7 +52,7 @@ All colors MUST be HSL.
 
     /* Custom Design Tokens */
     --gradient-primary: linear-gradient(135deg, hsl(45 100% 51%), hsl(4 90% 65%));
-    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.6));
+    --gradient-hero: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.6));
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -139,4 +140,51 @@ All colors MUST be HSL.
   .section-subtitle {
     @apply text-center text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12;
   }
+}
+
+/* Custom Cyberpunk Animations */
+@keyframes shimmer {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(150%);
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    background-position: 0 -100px;
+  }
+
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5), 0 0 20px rgba(74, 222, 128, 0.3);
+}
+
+.cyber-grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  /* animation removed for performance */
 }
