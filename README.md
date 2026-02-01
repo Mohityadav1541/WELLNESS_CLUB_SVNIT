@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Welcome to your Lovable project
 
 ## Project info
@@ -110,3 +111,6 @@ Before deploying to production:
 - [ ] No linting errors: `npm run lint`
 - [ ] Clerk authentication is properly configured
 - [ ] All routes are tested and working
+=======
+# WELLNESS_CLUB_SVNIT
+>>>>>>> 7a75eb3066139a0ca53c1dab648e484e0b0e92d7
