@@ -48,12 +48,11 @@ const IntroOverlay = () => {
                 >
                     <video
                         src="/intro_video.mp4"
-                        poster="/svnit-logo.png" // Fallback image while loading
                         autoPlay
                         muted
                         loop={false}
                         playsInline
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                     />
                     {/* Optional: Overlay text if needed */}
                     <div className="absolute bottom-10 left-0 right-0 text-center z-20">
