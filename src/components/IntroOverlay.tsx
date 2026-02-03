@@ -52,7 +52,7 @@ const IntroOverlay = () => {
                         muted
                         loop={false}
                         playsInline
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain md:object-cover"
                     />
                     {/* Optional: Overlay text if needed */}
                     <div className="absolute bottom-10 left-0 right-0 text-center z-20">

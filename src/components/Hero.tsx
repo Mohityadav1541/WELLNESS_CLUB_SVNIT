@@ -326,7 +326,7 @@ const Hero = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-serif font-medium text-white leading-[1.1] tracking-tight">
+            <h1 className="text-4xl md:text-7xl font-serif font-medium text-white leading-[1.1] tracking-tight">
               Awaken Your <br />
               <span className="italic">
                 <span className="text-amber-400">Divine Soul</span> &{" "}
