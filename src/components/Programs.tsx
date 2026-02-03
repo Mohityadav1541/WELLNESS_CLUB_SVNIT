@@ -651,13 +651,19 @@ const CombinedEventsTab: React.FC = () => {
                       </div>
 
                       {/* Big Action Button */}
-                      <button className="relative w-full overflow-hidden bg-amber-600 hover:bg-amber-500 text-black font-black uppercase py-5 tracking-widest transition-all duration-200 hover:tracking-[0.2em] skew-x-[-12deg] group/btn shadow-[0_0_30px_rgba(245,158,11,0.4)]">
+                      {/* Big Action Button */}
+                      <a
+                        href="https://forms.google.com/YOUR_REGISTRATION_FORM_ID"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative w-full overflow-hidden bg-amber-600 hover:bg-amber-500 text-black font-black uppercase py-5 tracking-widest transition-all duration-200 hover:tracking-[0.2em] skew-x-[-12deg] group/btn shadow-[0_0_30px_rgba(245,158,11,0.4)] flex items-center justify-center text-center decoration-0"
+                      >
                         <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1s_infinite]" />
                         <div className="skew-x-[12deg] flex items-center justify-center gap-3 relative z-10">
                           <GamepadIcon className="w-6 h-6" />
-                          DEPLOY
+                          REGISTER NOW
                         </div>
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>

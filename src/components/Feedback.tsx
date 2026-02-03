@@ -160,146 +160,32 @@ const Feedback = () => {
               className="lg:col-span-3 animate-fade-up"
               style={{ animationDelay: "0.1s" }}
             >
-              <form
-                onSubmit={handleSubmit}
-                className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-200/60 hover:shadow-xl transition-all duration-500"
-              >
-                <div className="space-y-6">
-                  {/* Name & Contact */}
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-semibold text-gray-900"
-                      >
-                        Your Name *
-                      </label>
-                      <Input
-                        id="name"
-                        name="name"
-                        placeholder="John Doe"
-                        required
-                        className="h-12 rounded-xl border-2 border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
-                      />
-                    </div>
-
-                    <div className="space-y-3">
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-semibold text-gray-900"
-                      >
-                        Email Address *
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="john@example.com"
-                        required
-                        className="h-12 rounded-xl border-2 border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
-                      />
-                    </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-200/60 hover:shadow-xl transition-all duration-500 text-center">
+                <div className="space-y-8 py-10">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto shadow-lg transform hover:scale-110 transition-transform duration-500">
+                    <MessageCircle className="w-10 h-10 text-white" />
                   </div>
 
-                  {/* Topic */}
-                  <div className="space-y-3">
-                    <label
-                      htmlFor="topic"
-                      className="block text-sm font-semibold text-gray-900"
-                    >
-                      What would you like to share? *
-                    </label>
-                    <Input
-                      id="topic"
-                      name="topic"
-                      placeholder="e.g., Program feedback, suggestion, or question..."
-                      required
-                      className="h-12 rounded-xl border-2 border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-300"
-                    />
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Submit Your Feedback
+                    </h3>
+                    <p className="text-gray-600 max-w-md mx-auto">
+                      We use Google Forms to collect your valuable feedback securely and efficiently. Click the button below to open the form.
+                    </p>
                   </div>
 
-                  {/* Category */}
-                  <div className="space-y-3">
-                    <label
-                      htmlFor="category"
-                      className="block text-sm font-semibold text-gray-900"
-                    >
-                      Category *
-                    </label>
-                    <select
-                      id="category"
-                      name="category"
-                      required
-                      className="w-full h-12 rounded-xl border-2 border-gray-200 bg-white text-gray-900 px-3 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-300"
-                    >
-                      <option value="">Select a category</option>
-                      <option value="feedback">General Feedback</option>
-                      <option value="suggestion">Suggestion</option>
-                      <option value="program">Program Feedback</option>
-                      <option value="technical">Technical Issue</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  {/* Message */}
-                  <div className="space-y-3">
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-semibold text-gray-900"
-                    >
-                      Your Message *
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Please share your detailed feedback, suggestions, or thoughts here..."
-                      required
-                      rows={6}
-                      className="rounded-xl border-2 border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 resize-none transition-all duration-300"
-                    />
-                  </div>
-
-                  {/* Hidden FormSubmit options */}
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New Feedback from Wellness Club"
-                  />
-                  <input
-                    type="text"
-                    name="_honey"
-                    style={{ display: "none" }}
-                  />
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    size="lg"
-                    className="w-full h-14 text-base rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold transition-all duration-500 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed group"
+                  <a
+                    href="https://forms.google.com/YOUR_FEEDBACK_FORM_ID"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Sending Your Feedback...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                        Send Feedback
-                        <Sparkles className="w-4 h-4 text-white/80" />
-                      </>
-                    )}
-                  </Button>
-
-                  {/* Privacy Note */}
-                  <p className="text-center text-gray-500 text-sm mt-4">
-                    We respect your privacy and will never share your
-                    information with third parties.
-                  </p>
+                    <span>Open Feedback Form</span>
+                    <Send className="w-5 h-5" />
+                  </a>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

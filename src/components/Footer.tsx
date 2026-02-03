@@ -165,11 +165,9 @@ const Footer = () => {
 
           <div className="flex gap-6">
             <div className="group relative">
-              <span className="cursor-pointer hover:text-white transition-colors">Developed By</span>
-              <div className="absolute bottom-full right-0 mb-2 w-48 bg-white text-black p-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl">
-                <p className="font-bold mb-1">Credits:</p>
-                <p>Neel Mhaske & Mohit Yadav</p>
-              </div>
+              <span className="cursor-pointer hover:text-white transition-colors">
+                Deployed by MOHIT YADAV AND NEEL MHASKE
+              </span>
             </div>
           </div>
         </div>
