@@ -56,9 +56,9 @@ const IntroOverlay = () => {
                         <div className="absolute inset-0 bg-black/30" /> {/* Dimming overlay */}
                         <div className="absolute inset-0 flex items-center justify-center">
                             <img
-                                src="/wellness-logo.png"
+                                src="/wellness-logo-clean.png"
                                 alt="Wellness Club Logo"
-                                className="w-48 h-48 object-contain drop-shadow-2xl animate-fade-up"
+                                className="w-48 h-48 object-cover rounded-full drop-shadow-2xl animate-fade-up bg-white/10 backdrop-blur-sm p-2"
                             />
                         </div>
                     </div>
