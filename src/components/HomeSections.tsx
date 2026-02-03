@@ -274,7 +274,7 @@ const HomeSections = () => {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-24 relative overflow-hidden bg-[url('/faq_bg.jpg')] bg-cover bg-center bg-no-repeat bg-fixed">
+            <section className="py-24 relative overflow-hidden bg-[url('/faq_bg.jpg')] bg-cover bg-center bg-no-repeat md:bg-fixed">
                 <div className="absolute inset-0 bg-black/85 z-0" /> {/* Dark Overlay */}
 
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl relative z-10">
