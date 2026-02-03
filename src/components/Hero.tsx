@@ -298,10 +298,13 @@ const Hero = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image */}
+      {/* Background Image - Fixed position for mobile support */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: `url(${homeBgCosmic})` }}
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${homeBgCosmic})`,
+          willChange: 'transform' // Performance optimization
+        }}
       />
 
       {/* Dark Overlay for Readability - slightly stronger to pop the text */}

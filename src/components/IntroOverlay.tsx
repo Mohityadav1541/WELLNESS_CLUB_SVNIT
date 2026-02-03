@@ -48,6 +48,7 @@ const IntroOverlay = () => {
                 >
                     <video
                         src="/intro_video.mp4"
+                        poster="/svnit-logo.png" // Fallback image while loading
                         autoPlay
                         muted
                         loop={false}
