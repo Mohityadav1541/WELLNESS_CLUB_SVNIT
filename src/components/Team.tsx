@@ -13,6 +13,7 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
+import TiltedCard from "./TiltedCard";
 
 const Team = () => {
   const teamStructure = [
@@ -223,112 +224,125 @@ const Team = () => {
                 {level.members.map((member, memberIndex) => {
                   const Icon = member.icon;
                   return (
-                    <div
-                      key={memberIndex}
-                      className="group relative bg-white/5 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-white/10 hover:border-white/20 hover:bg-white/10 backdrop-blur-md"
-                    >
-                      {/* Background Gradient */}
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${member.accent} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                      ></div>
+                    <div key={memberIndex} className="h-full">
+                      <TiltedCard
+                        containerHeight="100%"
+                        containerWidth="100%"
+                        imageHeight="100%"
+                        imageWidth="100%"
+                        rotateAmplitude={8}
+                        scaleOnHover={1.02}
+                        showMobileWarning={false}
+                        showTooltip={false}
+                        displayOverlayContent={false}
+                      >
+                        <div
+                          className="group relative bg-white/5 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border border-white/10 hover:border-white/20 hover:bg-white/10 backdrop-blur-md h-full"
+                        >
+                          {/* Background Gradient */}
+                          <div
+                            className={`absolute inset-0 bg-gradient-to-br ${member.accent} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                          ></div>
 
-                      {/* Profile Header */}
-                      <div className="relative pt-8 px-6">
-                        {/* Profile Image */}
-                        <div className="relative z-10 mx-auto w-28 h-28">
-                          <div className="relative w-full h-full">
-                            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-gray-50/20 rounded-full shadow-lg transform group-hover:scale-105 transition-transform duration-500 p-1">
-                              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/20 shadow-inner">
-                                <img
-                                  src={member.image}
-                                  alt={member.name}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
+                          {/* Profile Header */}
+                          <div className="relative pt-8 px-6">
+                            {/* Profile Image */}
+                            <div className="relative z-10 mx-auto w-28 h-28">
+                              <div className="relative w-full h-full">
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-gray-50/20 rounded-full shadow-lg transform group-hover:scale-105 transition-transform duration-500 p-1">
+                                  <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/20 shadow-inner">
+                                    <img
+                                      src={member.image}
+                                      alt={member.name}
+                                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+                                  </div>
+                                </div>
+                                {/* Icon Badge */}
+                                <div
+                                  className={`absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg bg-gradient-to-r ${member.accent}`}
+                                >
+                                  <Icon className="w-4 h-4 text-white" />
+                                </div>
                               </div>
                             </div>
-                            {/* Icon Badge */}
-                            <div
-                              className={`absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg bg-gradient-to-r ${member.accent}`}
-                            >
-                              <Icon className="w-4 h-4 text-white" />
+                          </div>
+
+                          {/* Card Content */}
+                          <div className="pt-16 pb-8 px-6 text-center relative z-10">
+                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
+                              {member.name}
+                            </h3>
+
+                            {/* Role Badge */}
+                            <div className="mb-4">
+                              <span
+                                className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold border bg-gradient-to-r ${member.badge} shadow-sm backdrop-blur-sm bg-opacity-90`}
+                              >
+                                {member.role}
+                              </span>
+                            </div>
+
+                            {/* Bio */}
+                            <p className="text-gray-300 text-sm mb-6 leading-relaxed font-light min-h-[60px]">
+                              {member.bio}
+                            </p>
+
+                            {/* Social Links */}
+                            <div className="flex items-center justify-center gap-4 mt-2">
+                              {member.instagram && (
+                                <a
+                                  href={member.instagram}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-[#E1306C] hover:bg-white/10 hover:border-[#E1306C]/30 transition-all duration-300"
+                                  title="Instagram"
+                                >
+                                  <Instagram className="w-5 h-5" />
+                                </a>
+                              )}
+                              {member.github && (
+                                <a
+                                  href={member.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                                  title="GitHub"
+                                >
+                                  <Github className="w-5 h-5" />
+                                </a>
+                              )}
+                              {member.linkedin && (
+                                <a
+                                  href={member.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-[#0077B5] hover:bg-white/10 hover:border-[#0077B5]/30 transition-all duration-300"
+                                  title="LinkedIn"
+                                >
+                                  <Linkedin className="w-5 h-5" />
+                                </a>
+                              )}
+                              {/* Fallback to email if no socials or for other members that keep email */}
+                              {!member.instagram &&
+                                !member.github &&
+                                !member.linkedin &&
+                                member.email && (
+                                  <div className="flex items-center justify-center gap-3 p-3 bg-black/30 rounded-xl border border-white/10 group-hover:bg-black/50 transition-colors duration-300">
+                                    <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                                    <a
+                                      href={`mailto:${member.email}`}
+                                      className="text-sm text-gray-300 hover:text-white transition-colors break-all font-medium truncate"
+                                      title={member.email}
+                                    >
+                                      {member.email}
+                                    </a>
+                                  </div>
+                                )}
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      {/* Card Content */}
-                      <div className="pt-16 pb-8 px-6 text-center relative z-10">
-                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
-                          {member.name}
-                        </h3>
-
-                        {/* Role Badge */}
-                        <div className="mb-4">
-                          <span
-                            className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold border bg-gradient-to-r ${member.badge} shadow-sm backdrop-blur-sm bg-opacity-90`}
-                          >
-                            {member.role}
-                          </span>
-                        </div>
-
-                        {/* Bio */}
-                        <p className="text-gray-300 text-sm mb-6 leading-relaxed font-light min-h-[60px]">
-                          {member.bio}
-                        </p>
-
-                        {/* Social Links */}
-                        <div className="flex items-center justify-center gap-4 mt-2">
-                          {member.instagram && (
-                            <a
-                              href={member.instagram}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-[#E1306C] hover:bg-white/10 hover:border-[#E1306C]/30 transition-all duration-300"
-                              title="Instagram"
-                            >
-                              <Instagram className="w-5 h-5" />
-                            </a>
-                          )}
-                          {member.github && (
-                            <a
-                              href={member.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all duration-300"
-                              title="GitHub"
-                            >
-                              <Github className="w-5 h-5" />
-                            </a>
-                          )}
-                          {member.linkedin && (
-                            <a
-                              href={member.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-[#0077B5] hover:bg-white/10 hover:border-[#0077B5]/30 transition-all duration-300"
-                              title="LinkedIn"
-                            >
-                              <Linkedin className="w-5 h-5" />
-                            </a>
-                          )}
-                          {/* Fallback to email if no socials or for other members that keep email */}
-                          {!member.instagram &&
-                            !member.github &&
-                            !member.linkedin &&
-                            member.email && (
-                              <div className="flex items-center justify-center gap-3 p-3 bg-black/30 rounded-xl border border-white/10 group-hover:bg-black/50 transition-colors duration-300">
-                                <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                                <a
-                                  href={`mailto:${member.email}`}
-                                  className="text-sm text-gray-300 hover:text-white transition-colors break-all font-medium truncate"
-                                  title={member.email}
-                                >
-                                  {member.email}
-                                </a>
-                              </div>
-                            )}
-                        </div>
-                      </div>
+                      </TiltedCard>
                     </div>
                   );
                 })}
