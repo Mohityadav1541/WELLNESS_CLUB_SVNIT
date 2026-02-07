@@ -23,6 +23,7 @@ interface PillNavProps {
     pillTextColor?: string;
     onMobileMenuClick?: () => void;
     initialLoadAnimation?: boolean;
+    rightElement?: React.ReactNode;
 }
 
 const PillNav = ({
@@ -37,7 +38,8 @@ const PillNav = ({
     hoveredPillTextColor = '#060010',
     pillTextColor,
     onMobileMenuClick,
-    initialLoadAnimation = true
+    initialLoadAnimation = true,
+    rightElement
 }: PillNavProps) => {
     const resolvedPillTextColor = pillTextColor ?? baseColor;
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -340,6 +342,12 @@ const PillNav = ({
                     <span className="hamburger-line" />
                     <span className="hamburger-line" />
                 </button>
+
+                {rightElement && (
+                    <div className="pill-nav-right desktop-only">
+                        {rightElement}
+                    </div>
+                )}
             </nav>
 
             <div className="mobile-menu-popover mobile-only" ref={mobileMenuRef} style={cssVars}>
