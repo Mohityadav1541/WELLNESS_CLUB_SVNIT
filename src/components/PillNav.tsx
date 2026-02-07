@@ -132,9 +132,8 @@ const PillNav = ({
             }
 
             if (navItems) {
-                gsap.set(navItems, { width: 0, opacity: 0, overflow: 'hidden' });
+                gsap.set(navItems, { opacity: 0 });
                 gsap.to(navItems, {
-                    width: 'auto',
                     opacity: 1,
                     duration: 0.8,
                     ease: "power3.out",

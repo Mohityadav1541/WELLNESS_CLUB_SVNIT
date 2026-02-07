@@ -4,9 +4,8 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 99;
-    width: 95%;
-    /* Use almost full width */
-    max-width: 1600px;
+    width: auto;
+    pointer-events: none;
     pointer-events: none;
     /* Let clicks pass through container */
 }
@@ -33,12 +32,10 @@
     --pill-gap: 4px;
     --pill-pad-x: 20px;
     --pill-gap: 4px;
-    width: 100%;
-    /* Full width */
+    width: max-content;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    /* Space out items */
+    justify-content: center;
     gap: 8px;
     box-sizing: border-box;
 }
