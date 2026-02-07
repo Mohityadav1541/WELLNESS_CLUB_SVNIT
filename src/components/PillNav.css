@@ -1,11 +1,12 @@
 .pill-nav-container {
     position: fixed;
     top: 1.5em;
-    left: calc(50% - 70px);
-    /* Moved 70px left as requested */
-    transform: translateX(-50%);
-    z-index: 99;
-    width: auto;
+    top: 1.5em;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
     pointer-events: none;
     pointer-events: none;
     /* Let clicks pass through container */
@@ -29,7 +30,8 @@
     --nav-h: 46px;
     /* Slightly taller for premium feel */
     --logo: 40px;
-    --pill-pad-x: 20px;
+    --pill-pad-x: 24px;
+    /* Increased padding to prevent cutoff */
     --pill-gap: 4px;
     --pill-pad-x: 20px;
     --pill-gap: 4px;
@@ -39,6 +41,8 @@
     justify-content: center;
     gap: 8px;
     box-sizing: border-box;
+    transform: translateX(-70px);
+    /* Shift ONLY the nav items 70px left */
 }
 
 @media (max-width: 768px) {
@@ -301,6 +305,12 @@
 }
 
 .pill-nav-right {
+    position: fixed;
+    /* Fixed to viewport corner */
+    right: 2rem;
+    top: 1.5em;
+    /* Match container top */
+    z-index: 100;
     display: flex;
     align-items: center;
     gap: 1rem;
