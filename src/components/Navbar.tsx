@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  useClerk,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
+// import {
+//   useClerk,
+//   SignedIn,
+//   SignedOut,
+//   UserButton,
+//   useUser,
+// } from "@clerk/clerk-react";
 import wellnessLogo from "@/assets/wellness-logo.png";
 import svnitLogo from "@/assets/svnit-logo.png";
 import {
@@ -27,8 +27,12 @@ const Navbar = () => {
   const [protectedPage, setProtectedPage] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const { openSignIn } = useClerk();
-  const { isSignedIn } = useUser();
+
+  // MOCK AUTH - Clerk disabled due to missing key
+  // const { openSignIn } = useClerk();
+  // const { isSignedIn } = useUser();
+  const isSignedIn = false;
+  const openSignIn = (opts: any) => console.log("Sign In Clicked (Auth Disabled)", opts);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -157,7 +161,7 @@ const Navbar = () => {
 
             {/* Right Side — Join Now OR User Button */}
             <div className="hidden md:block">
-              <SignedOut>
+              {!isSignedIn ? (
                 <Button
                   variant="hero"
                   size="default"
@@ -165,18 +169,10 @@ const Navbar = () => {
                 >
                   Join Now
                 </Button>
-              </SignedOut>
-
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox:
-                        "h-10 w-10 border-2 border-primary rounded-full",
-                    },
-                  }}
-                />
-              </SignedIn>
+              ) : (
+                <div className="h-10 w-10 border-2 border-primary rounded-full bg-gray-200" />
+                // <UserButton ... />
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -196,7 +192,7 @@ const Navbar = () => {
                   <MobileNavLink key={item.name} item={item} />
                 ))}
 
-                <SignedOut>
+                {!isSignedIn ? (
                   <Button
                     variant="hero"
                     className="w-full mt-2"
@@ -207,20 +203,12 @@ const Navbar = () => {
                   >
                     Join Now
                   </Button>
-                </SignedOut>
-
-                <SignedIn>
+                ) : (
                   <div className="flex justify-center mt-4">
-                    <UserButton
-                      appearance={{
-                        elements: {
-                          userButtonAvatarBox:
-                            "h-12 w-12 border-2 border-primary rounded-full",
-                        },
-                      }}
-                    />
+                    {/* <UserButton ... /> */}
+                    <div className="h-12 w-12 border-2 border-primary rounded-full bg-gray-200" />
                   </div>
-                </SignedIn>
+                )}
               </div>
             </div>
           )}
