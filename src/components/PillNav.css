@@ -1,13 +1,10 @@
 .pill-nav-container {
     position: fixed;
     top: 1.5em;
-    top: 1.5em;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-    pointer-events: none;
-    pointer-events: none;
     pointer-events: none;
     /* Let clicks pass through container */
 }
@@ -41,8 +38,9 @@
     justify-content: center;
     gap: 8px;
     box-sizing: border-box;
-    transform: translateX(-70px);
-    /* Shift ONLY the nav items 70px left */
+    position: relative;
+    left: -70px;
+    /* Shift ONLY the nav items 70px left using relative positioning to avoid containing block issues */
 }
 
 @media (max-width: 768px) {
