@@ -61,7 +61,7 @@ const Navbar = ({ transparent = false }: { transparent?: boolean }) => {
         hoveredPillTextColor="#000000"
         pillTextColor="#ffffff"
         ease="power2.out"
-        initialLoadAnimation={true}
+        initialLoadAnimation={false}
         rightElement={rightElement}
       />
     </div>
