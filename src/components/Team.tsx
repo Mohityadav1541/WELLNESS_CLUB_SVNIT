@@ -231,7 +231,7 @@ const Team = () => {
                         imageHeight="100%"
                         imageWidth="100%"
                         rotateAmplitude={8}
-                        scaleOnHover={1.02}
+                        scaleOnHover={1.15}
                         showMobileWarning={false}
                         showTooltip={false}
                         displayOverlayContent={false}
