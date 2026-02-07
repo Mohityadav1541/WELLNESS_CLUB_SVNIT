@@ -150,10 +150,12 @@
 .pill .label-stack {
     position: relative;
     display: inline-block;
-    height: 14px;
-    /* Fixed height for text stack */
-    overflow: hidden;
-    z-index: 2;
+    height: auto;
+    /* Allow auto height to prevent clipping */
+    /* overflow: hidden; - Removed to debug visibility */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .pill .pill-label {

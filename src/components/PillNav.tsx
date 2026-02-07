@@ -13,6 +13,8 @@ interface NavItem {
 interface PillNavProps {
     logo?: string;
     logoAlt?: string;
+    secondaryLogo?: string;
+    secondaryLogoAlt?: string;
     items: NavItem[];
     activeHref?: string;
     className?: string;
@@ -29,6 +31,8 @@ interface PillNavProps {
 const PillNav = ({
     logo,
     logoAlt = 'Logo',
+    secondaryLogo,
+    secondaryLogoAlt = 'Secondary Logo',
     items,
     activeHref,
     className = '',
@@ -251,9 +255,10 @@ const PillNav = ({
     return (
         <div className="pill-nav-container">
             <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars}>
-                <div className="pill-logo-container"
+                <div className="pill-logo-container flex items-center gap-2"
                     onMouseEnter={handleLogoEnter}
                 >
+                    {/* Primary Logo */}
                     {isRouterLink(items?.[0]?.href) ? (
                         <Link
                             className="pill-logo"
@@ -271,8 +276,14 @@ const PillNav = ({
                             ref={logoRef}
                         >
                             {logo ? <img src={logo} alt={logoAlt} ref={logoImgRef} /> : <div className="w-full h-full bg-amber-500 rounded-full"></div>}
-
                         </a>
+                    )}
+
+                    {/* Secondary Logo (SVNIT) */}
+                    {secondaryLogo && (
+                        <div className="pill-logo secondary-logo">
+                            <img src={secondaryLogo} alt={secondaryLogoAlt} className="w-full h-full object-cover rounded-full" />
+                        </div>
                     )}
                 </div>
 

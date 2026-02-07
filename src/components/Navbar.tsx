@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import wellnessLogo from "@/assets/wellness-logo-clean.png";
+import svnitLogo from "@/assets/svnit-logo.png";
 import PillNav from "./PillNav";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
@@ -53,6 +54,8 @@ const Navbar = ({ transparent = false }: { transparent?: boolean }) => {
       <PillNav
         logo={wellnessLogo}
         logoAlt="Wellness Club Logo"
+        secondaryLogo={svnitLogo}
+        secondaryLogoAlt="SVNIT Logo"
         items={navItems}
         activeHref={activeHref}
         className="fixed top-4 z-[9999]"
