@@ -19,6 +19,7 @@ import {
   Lock,
   CheckCircle,
 } from "lucide-react";
+import CircularGallery from "./CircularGallery";
 
 interface Event {
   id: number;
@@ -672,84 +673,35 @@ const CombinedEventsTab: React.FC = () => {
             })}
           </div>
         ) : (
-          /* Gallery View - Only Photos */
-          <div className="max-w-7xl mx-auto">
-            {/* Gallery Header */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+          /* Gallery View - Circular 3D Gallery */
+          <div className="h-[600px] w-full relative overflow-hidden rounded-2xl bg-black/40 border border-white/10 backdrop-blur-sm">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 text-center pointer-events-none">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-1 drop-shadow-lg">
                 Event Gallery
               </h2>
-              <p className="text-gray-600">
-                Browse photos from Wellness Club events at SVNIT
+              <p className="text-gray-300 text-sm drop-shadow-md">
+                Drag to explore • Scroll to zoom
               </p>
             </div>
 
-            {/* Photos Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {allImages
+            <CircularGallery
+              items={allImages
                 .filter((imageItem) =>
                   filteredEvents.some(
                     (event) => event.id === imageItem.event.id
                   )
                 )
-                .map((imageItem, index) => (
-                  <div
-                    key={`${imageItem.event.id}-${imageItem.index}`}
-                    className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
-                    onClick={() => openGalleryModal(imageItem)}
-                  >
-                    {/* Image */}
-                    <div className="aspect-square overflow-hidden bg-gray-100">
-                      {imageLoadError[imageItem.url] ? (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
-                          <Image className="w-8 h-8 text-gray-400 mb-2" />
-                          <span className="text-xs text-gray-500">
-                            Image not available
-                          </span>
-                        </div>
-                      ) : (
-                        <img
-                          src={imageItem.url}
-                          alt={`${imageItem.event.title} - Photo ${imageItem.index + 1
-                            }`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          onError={() => handleImageError(imageItem.url)}
-                        />
-                      )}
-                    </div>
-
-                    {/* Minimal Overlay - Only on Hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-end p-3">
-                      <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <p className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-1">
-                          {imageItem.event.title}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Photo Count Badge */}
-                    {imageItem.index === 0 &&
-                      imageItem.event.images.length > 1 && (
-                        <div className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-full text-xs">
-                          +{imageItem.event.images.length - 1}
-                        </div>
-                      )}
-                  </div>
-                ))}
-            </div>
-
-            {/* Gallery Stats */}
-            <div className="text-center mt-8 text-sm text-gray-500">
-              Showing{" "}
-              {
-                allImages.filter((imageItem) =>
-                  filteredEvents.some(
-                    (event) => event.id === imageItem.event.id
-                  )
-                ).length
-              }{" "}
-              photos from {filteredEvents.length} events
-            </div>
+                .map((imageItem) => ({
+                  image: imageItem.url,
+                  text: imageItem.event.title.split(' ')[0] + '...' // Short text for the gallery
+                }))}
+              bend={3}
+              textColor="#ffffff"
+              borderRadius={0.05}
+              font="bold 30px Figtree"
+              scrollSpeed={2}
+              scrollEase={0.05}
+            />
           </div>
         )
         }
