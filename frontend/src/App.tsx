@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Navbar from "./components/Navbar";
 
@@ -24,10 +24,88 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import EventManagement from "./pages/admin/EventManagement";
 import RegistrationManagement from "./pages/admin/RegistrationManagement";
+import AdminUsersTable from "./pages/admin/AdminUsersTable";
+import CommitteeManagement from "./pages/admin/CommitteeManagement";
+import MerchManagement from "./pages/admin/MerchManagement";
+import MerchOrders from "./pages/admin/MerchOrders";
 
 import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/super-admin');
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isAdminRoute && <Navbar />}
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/programs" element={<ProgramsPage />} />
+        <Route path="/merch" element={<MerchPage />} />
+        <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/team" element={<TeamPage />} />
+
+        {/* Auth Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute allowedRoles={['student', 'admin', 'superadmin']}>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/feedback"
+          element={
+            <ProtectedRoute allowedRoles={['student', 'admin', 'superadmin']}>
+              <FeedbackPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Super Admin Route */}
+        <Route
+          path="/super-admin"
+          element={
+            <ProtectedRoute allowedRoles={['superadmin']}>
+              <SuperAdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path="events" element={<EventManagement />} />
+          <Route path="registrations" element={<RegistrationManagement />} />
+          <Route path="users" element={<AdminUsersTable />} />
+          <Route path="committees" element={<CommitteeManagement />} />
+          <Route path="merch" element={<MerchManagement />} />
+          <Route path="orders" element={<MerchOrders />} />
+          <Route path="*" element={<div>Admin Page Not Found</div>} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,66 +114,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <ScrollToTop />
-          <Navbar />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/programs" element={<ProgramsPage />} />
-            <Route path="/merch" element={<MerchPage />} />
-            <Route path="/thankyou" element={<ThankYou />} />
-            <Route path="/team" element={<TeamPage />} />
-
-            {/* Auth Routes */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-
-            {/* Protected Routes */}
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute allowedRoles={['student', 'admin', 'superadmin']}>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/feedback"
-              element={
-                <ProtectedRoute allowedRoles={['student', 'admin', 'superadmin']}>
-                  <FeedbackPage />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Super Admin Route */}
-            <Route
-              path="/super-admin"
-              element={
-                <ProtectedRoute allowedRoles={['superadmin']}>
-                  <SuperAdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Admin Routes */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
-                  <AdminLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<AdminDashboard />} />
-              <Route path="events" element={<EventManagement />} />
-              <Route path="registrations" element={<RegistrationManagement />} />
-              <Route path="*" element={<div>Admin Page Not Found</div>} />
-            </Route>
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AppContent />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

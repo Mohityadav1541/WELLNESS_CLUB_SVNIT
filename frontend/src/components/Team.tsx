@@ -133,19 +133,7 @@ const Team = () => {
           github: "https://github.com/Mohityadav1541",
           linkedin: "https://www.linkedin.com/in/mohit-yadav-3a8957310?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         },
-        {
-          name: "Neel Mhaske",
-          role: "Full Stack Developer",
-          email: "dev@wellness.svnit",
-          icon: Code,
-          bio: "Creative mind behind the visual identity, user experience, and aesthetic direction of the website",
-          image: "/khyati_mistry.png", // Using placeholder, user can replace
-          accent: "from-pink-500 to-rose-500",
-          badge: "from-pink-100 to-rose-100 text-pink-800 border-pink-200",
-          instagram: "https://instagram.com",
-          github: "https://github.com",
-          linkedin: "https://linkedin.com",
-        },
+
       ],
     },
   ];

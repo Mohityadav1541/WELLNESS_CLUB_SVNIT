@@ -8,7 +8,10 @@ import {
     LogOut,
     Menu,
     X,
-    FileText
+    FileText,
+    ShoppingBag,
+    ClipboardList,
+    Shield
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
@@ -25,7 +28,9 @@ const AdminLayout = () => {
         { name: 'Events', path: '/admin/events', icon: <Calendar className="w-5 h-5" /> },
         { name: 'Registrations', path: '/admin/registrations', icon: <FileText className="w-5 h-5" /> },
         { name: 'Users', path: '/admin/users', icon: <Users className="w-5 h-5" /> },
-        { name: 'Settings', path: '/admin/settings', icon: <Settings className="w-5 h-5" /> },
+        { name: 'Committees', path: '/admin/committees', icon: <Shield className="w-5 h-5" /> },
+        { name: 'Merch Store', path: '/admin/merch', icon: <ShoppingBag className="w-5 h-5" /> },
+        { name: 'Merch Orders', path: '/admin/orders', icon: <ClipboardList className="w-5 h-5" /> },
     ];
 
     return (
